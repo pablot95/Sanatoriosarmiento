@@ -93,7 +93,7 @@ document.addEventListener('DOMContentLoaded', function () {
             cursorFollower.style.top = e.clientY - 10 + 'px';
         });
 
-        document.querySelectorAll('a, button, .service-card, .specialty-card, .testimonial-card').forEach(function (el) {
+        document.querySelectorAll('a, button, .bento-tile, .testimonial-card').forEach(function (el) {
             el.addEventListener('mouseenter', function () {
                 cursorFollower.style.transform = 'scale(2)';
                 cursorFollower.style.borderColor = 'rgba(192, 57, 43, .5)';
@@ -222,5 +222,77 @@ document.addEventListener('DOMContentLoaded', function () {
             hero.style.transform = 'translateY(' + scrolled * 0.3 + 'px) scale(1.1)';
         }
     });
+
+    // Service modal
+    var modal = document.getElementById('serviceModal');
+    var modalImg = document.getElementById('modalImg');
+    var modalIcon = document.getElementById('modalIcon');
+    var modalTitle = document.getElementById('modalTitle');
+    var modalDesc = document.getElementById('modalDesc');
+    var modalPoints = document.getElementById('modalPoints');
+    var modalWhatsapp = document.getElementById('modalWhatsapp');
+    var modalClose = modal ? modal.querySelector('.service-modal-close') : null;
+    var modalImgContainer = modal ? modal.querySelector('.service-modal-img') : null;
+
+    document.querySelectorAll('.bento-tile').forEach(function (tile) {
+        tile.style.cursor = 'pointer';
+        tile.addEventListener('click', function () {
+            var title = this.dataset.title;
+            var icon = this.dataset.icon;
+            var img = this.dataset.img;
+            var desc = this.dataset.desc;
+            var points = this.dataset.points ? this.dataset.points.split('|') : [];
+
+            modalTitle.textContent = title;
+            modalDesc.textContent = desc;
+            modalIcon.className = icon;
+
+            if (img) {
+                modalImg.src = img;
+                modalImg.alt = title;
+                modalImg.style.display = '';
+                modalImgContainer.classList.remove('no-image');
+            } else {
+                modalImg.style.display = 'none';
+                modalImgContainer.classList.add('no-image');
+            }
+
+            modalPoints.innerHTML = '';
+            points.forEach(function (point) {
+                var li = document.createElement('li');
+                li.textContent = point;
+                modalPoints.appendChild(li);
+            });
+
+            var texto = 'Hola, quisiera solicitar un turno para *' + title + '*.';
+            modalWhatsapp.href = 'https://wa.me/5493624862592?text=' + encodeURIComponent(texto);
+
+            modal.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        });
+    });
+
+    if (modalClose) {
+        modalClose.addEventListener('click', function () {
+            modal.classList.remove('active');
+            document.body.style.overflow = '';
+        });
+    }
+
+    if (modal) {
+        modal.addEventListener('click', function (e) {
+            if (e.target === modal) {
+                modal.classList.remove('active');
+                document.body.style.overflow = '';
+            }
+        });
+
+        document.addEventListener('keydown', function (e) {
+            if (e.key === 'Escape' && modal.classList.contains('active')) {
+                modal.classList.remove('active');
+                document.body.style.overflow = '';
+            }
+        });
+    }
 
 });

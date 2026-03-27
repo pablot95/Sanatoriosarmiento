@@ -15,6 +15,55 @@ document.addEventListener('DOMContentLoaded', function () {
         fechaInput.setAttribute('min', yyyy + '-' + mm + '-' + dd);
     }
 
+    if (bookingForm) {
+        bookingForm.addEventListener('submit', function (e) {
+            e.preventDefault();
+
+            var isValid = true;
+            var requiredFields = bookingForm.querySelectorAll('[required]');
+
+            requiredFields.forEach(function (field) {
+                field.classList.remove('error');
+                if (!field.value.trim()) {
+                    field.classList.add('error');
+                    isValid = false;
+                }
+            });
+
+            if (!isValid) return;
+
+            var nombre = document.getElementById('nombre').value.trim();
+            var especialidad = document.getElementById('especialidad').value;
+            var fecha = document.getElementById('fecha').value;
+            var obraSocial = document.getElementById('obra-social').value.trim();
+            var mensaje = document.getElementById('mensaje').value.trim();
+
+            var fechaFormateada = '';
+            if (fecha) {
+                var partes = fecha.split('-');
+                fechaFormateada = partes[2] + '/' + partes[1] + '/' + partes[0];
+            }
+
+            var texto = 'Hola, quisiera solicitar un turno.\n\n';
+            texto += '*Nombre:* ' + nombre + '\n';
+            texto += '*Especialidad:* ' + especialidad + '\n';
+            if (fechaFormateada) texto += '*Fecha preferida:* ' + fechaFormateada + '\n';
+            if (obraSocial) texto += '*Obra Social:* ' + obraSocial + '\n';
+            if (mensaje) texto += '*Observaciones:* ' + mensaje + '\n';
+
+            var url = 'https://wa.me/5493624862592?text=' + encodeURIComponent(texto);
+            window.open(url, '_blank');
+        });
+
+        bookingForm.querySelectorAll('[required]').forEach(function (field) {
+            field.addEventListener('input', function () {
+                if (this.value.trim()) {
+                    this.classList.remove('error');
+                }
+            });
+        });
+    }
+
     window.addEventListener('scroll', function () {
         if (window.scrollY > 60) {
             navbar.classList.add('scrolled');
@@ -144,51 +193,6 @@ document.addEventListener('DOMContentLoaded', function () {
             }
         });
     });
-
-    if (bookingForm) {
-        bookingForm.addEventListener('submit', function (e) {
-            e.preventDefault();
-
-            var isValid = true;
-            var requiredFields = bookingForm.querySelectorAll('[required]');
-
-            requiredFields.forEach(function (field) {
-                field.classList.remove('error');
-                if (!field.value.trim()) {
-                    field.classList.add('error');
-                    isValid = false;
-                }
-            });
-
-            var emailField = bookingForm.querySelector('#email');
-            if (emailField && emailField.value) {
-                var emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-                if (!emailPattern.test(emailField.value)) {
-                    emailField.classList.add('error');
-                    isValid = false;
-                }
-            }
-
-            if (isValid) {
-                var submitBtn = bookingForm.querySelector('button[type="submit"]');
-                submitBtn.disabled = true;
-                submitBtn.querySelector('span').textContent = 'Enviando...';
-
-                setTimeout(function () {
-                    bookingForm.style.display = 'none';
-                    document.getElementById('form-success').classList.add('show');
-                }, 1200);
-            }
-        });
-
-        bookingForm.querySelectorAll('[required]').forEach(function (field) {
-            field.addEventListener('input', function () {
-                if (this.value.trim()) {
-                    this.classList.remove('error');
-                }
-            });
-        });
-    }
 
     var sections = document.querySelectorAll('section[id]');
 

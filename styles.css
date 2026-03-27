@@ -660,6 +660,71 @@ ul { list-style: none; }
     transition: var(--transition);
 }
 
+.services-grid-icons {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+}
+
+.service-card-icon {
+    padding: 32px 24px;
+    border: 1px solid var(--gray-200);
+    border-radius: var(--radius-lg);
+    transition: var(--transition);
+    background: var(--white);
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+}
+
+.service-card-icon::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(135deg, var(--red-soft) 0%, transparent 60%);
+    opacity: 0;
+    transition: var(--transition);
+}
+
+.service-card-icon:hover::before {
+    opacity: 1;
+}
+
+.service-card-icon:hover {
+    border-color: var(--red);
+    transform: translateY(-6px);
+    box-shadow: var(--shadow-lg);
+}
+
+.service-card-icon .service-icon {
+    margin: 0 auto 16px;
+    position: relative;
+}
+
+.service-card-icon h3 {
+    font-size: 1.05rem;
+    color: var(--gray-900);
+    margin-bottom: 8px;
+    font-weight: 700;
+    position: relative;
+}
+
+.service-card-icon p {
+    font-size: .88rem;
+    color: var(--gray-600);
+    line-height: 1.6;
+    position: relative;
+}
+
+.service-card-highlight {
+    border-color: var(--red);
+    background: var(--red-soft);
+}
+
+.service-card-highlight .service-icon {
+    background: var(--red);
+    color: var(--white);
+}
+
 .cta-banner {
     padding: 80px 0;
     background: linear-gradient(135deg, var(--red) 0%, var(--red-dark) 100%);
@@ -997,6 +1062,68 @@ ul { list-style: none; }
     font-weight: 500;
 }
 
+.booking-whatsapp-cta {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.whatsapp-box {
+    background: var(--white);
+    border-radius: var(--radius-xl);
+    padding: 48px 40px;
+    box-shadow: var(--shadow-lg);
+    border: 1px solid var(--gray-100);
+    text-align: center;
+    width: 100%;
+}
+
+.whatsapp-icon-big {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    background: #25d366;
+    color: var(--white);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 2.2rem;
+    margin: 0 auto 24px;
+    box-shadow: 0 8px 30px rgba(37, 211, 102, .3);
+}
+
+.whatsapp-box h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.5rem;
+    color: var(--gray-900);
+    margin-bottom: 12px;
+}
+
+.whatsapp-box > p {
+    color: var(--gray-600);
+    font-size: .95rem;
+    line-height: 1.6;
+    margin-bottom: 28px;
+}
+
+.whatsapp-box .btn {
+    font-size: 1rem;
+}
+
+.whatsapp-hours {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    margin-top: 20px;
+    font-size: .85rem;
+    color: var(--gray-500);
+}
+
+.whatsapp-hours i {
+    color: var(--red);
+}
+
 .testimonials {
     padding: 120px 0;
     background: var(--white);
@@ -1276,8 +1403,8 @@ ul { list-style: none; }
 
 @media (max-width: 1024px) {
     .services-grid,
+    .services-grid-icons,
     .testimonials-grid { grid-template-columns: repeat(2, 1fr); }
-    .specialties-grid { grid-template-columns: repeat(2, 1fr); }
     .about-grid { gap: 50px; }
     .footer-top { grid-template-columns: 1fr 1fr; gap: 36px; }
 }
@@ -1347,7 +1474,7 @@ ul { list-style: none; }
     }
 
     .services-grid,
-    .specialties-grid,
+    .services-grid-icons,
     .testimonials-grid {
         grid-template-columns: 1fr;
     }

@@ -588,13 +588,13 @@ ul { list-style: none; }
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
-    gap: 10px;
+    gap: 7px;
 }
 
 .service-tag {
     display: inline-block;
-    padding: 8px 20px;
-    font-size: .85rem;
+    padding: 8px 15px;
+    font-size: .80rem;
     font-weight: 600;
     color: var(--gray-700);
     background: var(--white);

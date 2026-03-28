@@ -1,5 +1,12 @@
 document.addEventListener('DOMContentLoaded', function () {
 
+    // Marquee: duplicar tags para loop infinito en mobile
+    var tagsTrack = document.querySelector('.services-tags-track');
+    if (tagsTrack) {
+        var tags = tagsTrack.innerHTML;
+        tagsTrack.innerHTML = tags + tags;
+    }
+
     var navbar = document.querySelector('.navbar');
     var menuToggle = document.querySelector('.menu-toggle');
     var navLinks = document.querySelector('.nav-links');

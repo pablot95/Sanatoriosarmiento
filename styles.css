@@ -575,6 +575,41 @@ ul { list-style: none; }
     background: var(--gray-50);
 }
 
+.services-tags {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 10px;
+    margin-bottom: 40px;
+    overflow: hidden;
+}
+
+.services-tags-track {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 10px;
+}
+
+.service-tag {
+    display: inline-block;
+    padding: 8px 20px;
+    font-size: .85rem;
+    font-weight: 600;
+    color: var(--gray-700);
+    background: var(--white);
+    border: 1px solid var(--gray-200);
+    border-radius: 50px;
+    letter-spacing: .3px;
+    transition: var(--transition);
+}
+
+.service-tag:hover {
+    color: var(--red);
+    border-color: var(--red-soft);
+    background: var(--red-soft);
+}
+
 .bento-grid {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
@@ -1667,6 +1702,35 @@ ul { list-style: none; }
         grid-auto-rows: 200px;
         gap: 5px;
     }
+
+    .services-tags {
+        flex-wrap: nowrap;
+        justify-content: flex-start;
+        overflow: hidden;
+        margin-left: -20px;
+        margin-right: -20px;
+        padding: 0;
+        mask-image: linear-gradient(to right, transparent, black 20px, black calc(100% - 20px), transparent);
+        -webkit-mask-image: linear-gradient(to right, transparent, black 20px, black calc(100% - 20px), transparent);
+    }
+
+    .services-tags-track {
+        display: flex;
+        flex-wrap: nowrap;
+        gap: 10px;
+        animation: marquee-tags 20s linear infinite;
+        width: max-content;
+    }
+
+    .service-tag {
+        flex-shrink: 0;
+        white-space: nowrap;
+    }
+
+    @keyframes marquee-tags {
+        0% { transform: translateX(0); }
+        100% { transform: translateX(-50%); }
+    }
     .bento-tile[style*="span 2"] { grid-column: span 1 !important; }
     .bento-tile[style*="span 2"].bento-tall { grid-row: span 1 !important; }
     .bento-tall { grid-row: span 1 !important; }
@@ -1743,4 +1807,13 @@ ul { list-style: none; }
         padding:  10px;
         gap: 0;
     }
+    .services-tags {
+    gap: 2px;
+    margin-bottom: 30px;
+}
+
+.service-tag {
+    padding: 8px 15px;
+    font-size: .8rem;
+}
 }
